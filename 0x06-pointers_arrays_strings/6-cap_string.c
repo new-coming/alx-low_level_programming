@@ -1,45 +1,37 @@
 #include "main.h"
-
-int is_sep(char ch);
 /**
- * cap_string - capitalizes all words of a string
- * @str: string to be processed
- * Description: separators of words use: space, tabulation, new line
- * ,;.!?"(){}
- * Return: string
+ * cap_string - Capitalizes all words of a string.
+ * @str: The string to be capitalized.
+ *
+ * Return: A pointer to the changed string.
  */
 char *cap_string(char *str)
 {
-	int x;
+	int index = 0;
 
-	x = 0;
-	if (str[x] >= 97 && str[x] <= 122)
-		str[x] -= 32;
-	for (x = 1; str[x] != '\0'; ++x)
+	while (str[index])
 	{
-		if (is_sep(str[x - 1]))
-			if (str[x] >= 97 && str[x] <= 122)
-				str[x] -= 32;
+		while (!(str[index] >= 'a' && str[index] <= 'z'))
+			index++;
+
+		if (str[index - 1] == ' ' ||
+		    str[index - 1] == '\t' ||
+		    str[index - 1] == '\n' ||
+		    str[index - 1] == ',' ||
+		    str[index - 1] == ';' ||
+		    str[index - 1] == '.' ||
+		    str[index - 1] == '!' ||
+		    str[index - 1] == '?' ||
+		    str[index - 1] == '"' ||
+		    str[index - 1] == '(' ||
+		    str[index - 1] == ')' ||
+		    str[index - 1] == '{' ||
+		    str[index - 1] == '}' ||
+		    index == 0)
+			str[index] -= 32;
+
+		index++;
 	}
-	if (str[x - 1] >= 97 && str[x - 1] <= 122)
-		str[x - 1] -= 32;
+
 	return (str);
-}
-
-/**
- * is_sep - checks for separator
- * @ch: character to be processed
- * Return: 1 if separator, else 0
- */
-int is_sep(char ch)
-{
-	char sep[] = " \n\t.,;!?\"()[]";
-	int x;
-
-	for (x = 0; sep[x] != '\0'; x++)
-	{
-		if (sep[x] == ch)
-			return (1);
-	}
-	return (0);
 }
