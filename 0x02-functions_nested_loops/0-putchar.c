@@ -1,9 +1,8 @@
 #include "main.h"
-
 /**
- * main - Entry point
- * Description: print _putchar follwed by a new line
- * Return: 0 (success)
+ * main - prints robert to stdout
+ *
+ * Return: 0 if no error
  */
 int main(void)
 {

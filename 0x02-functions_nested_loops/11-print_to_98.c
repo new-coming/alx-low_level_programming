@@ -1,22 +1,20 @@
 #include <stdio.h>
 #include "main.h"
-
 /**
- * print_to_98 - print a sequence from a given number to 98
- * @n: strating number
+ * print_to_98 - prints all natural nums from n to 98 separated by , ending
+ * with new line.
+ * @n: holds place of input integer
  *
+ * Return: void
  */
 void print_to_98(int n)
 {
-	while (n != 98)
-	{
-		printf("%d", n);
-		if (n > 98)
-			--n;
-		else if (n < 98)
-			++n;
-		printf(", ");
-	}
-	printf("%d", 98);
-	printf("\n");
+	if (n < 98)
+		for (; n < 98; n++)
+			printf("%d, ", n);
+	else
+		for (; n > 98; n--)
+			printf("%d, ", n);
+	printf("98\n");
 }
+
