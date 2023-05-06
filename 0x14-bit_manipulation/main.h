@@ -1,12 +1,13 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
-
-#include <stdio.h>
+#ifndef MAIN_H
+#define MAIN_H
 #include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
+#include <stdio.h>
 
 int _putchar(char c);
 unsigned int binary_to_uint(const char *b);
+int _pow(int x, int y);
+int _strlen(char *s);
 void print_binary(unsigned long int n);
 int get_bit(unsigned long int n, unsigned int index);
 int set_bit(unsigned long int *n, unsigned int index);
