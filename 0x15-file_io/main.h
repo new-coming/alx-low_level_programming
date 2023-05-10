@@ -1,13 +1,22 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
+#ifndef MY_MAIN_H
+#define MY_MAIN_H
 
+/* Define buffer size for task 3 */
+#define BUFFER_SIZE 1024
+
+/*
+ * Description: Header file containing prototypes for all functions
+ */
+
+/* Libraries Used */
 #include <unistd.h>
-#include <stdio.h>
+#include <fcntl.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <fcntl.h>
 
+/* Prototypes */
 int _putchar(char c);
 ssize_t read_textfile(const char *filename, size_t letters);
 int create_file(const char *filename, char *text_content);

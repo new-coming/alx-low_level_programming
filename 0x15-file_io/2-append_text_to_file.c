@@ -1,51 +1,41 @@
 #include "main.h"
 
-int _string_len(char *s);
 /**
- * append_text_to_file - appends text at the end of a file
+ * append_text_to_file - Appends text at the end of a file.
+ * @filename: A pointer to the name of the file.
+ * @text_content: The string to add to the end of the file.
  *
- * @filename: name of the file
- * @text_content: NULL terminated string to add at the end of the file
- *
- * Return: 1 on success, -1 on failure
- *
+ * Return: If the function fails or filename is NULL - -1.
+ *         If the file does not exist the user lacks write permissions - -1.
+ *         Otherwise - 1.
  */
+
 int append_text_to_file(const char *filename, char *text_content)
 {
-	int file;
-	int len;
-	int write_len;
+	int fd, to_write, s = 0;
 
-	file = open(filename, O_WRONLY | O_APPEND);
-	if (filename == NULL)
+	/* Checks if filename is NULL  and return -1 */
+	if (!filename)
 		return (-1);
-	if (file == -1)
+
+	/* Opens file in append mode */
+	fd = open(filename, O_WRONLY | O_APPEND);
+	if (fd < 0)
 		return (-1);
-	if (text_content != NULL)
+
+	if (text_content)
 	{
-		len = _string_len(text_content);
-		write_len = write(file, text_content, len);
+		/* Write text_content to file */
+		while (text_content[s])
+			s++;
+		/* Checks if writing to the file failed */
+		to_write = write(fd, text_content, s);
+		if (to_write != s)
+			return (-1);
 	}
-	if (write_len == -1)
-		return (-1);
-	close(file);
+
+	close(fd);
+
 	return (1);
 }
 
-/**
- * _string_len - gets the length of a string
- *
- * @s: string
- *
- * Return: length of string
- *
- */
-int _string_len(char *s)
-{
-	int len;
-
-	len = 0;
-	while (*(s + len))
-		++len;
-	return (len);
-}

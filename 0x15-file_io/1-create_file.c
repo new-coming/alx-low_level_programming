@@ -1,51 +1,43 @@
 #include "main.h"
 
-int _string_len(char *s);
 /**
- * create_file - creates a file
+ * create_file - Entry point
+ * Description: Create a file.
+ * @filename: Name of the file to be read
+ * @text_content: A NULL terminated string to write to the file
  *
- * @filename: name of the file to create
- * @text_content: NULL terminated string to write to the file
- *
- * Return: 1 on success, -1 on failure
- *
+ * Return: 1 on sucess, -1 on failure
  */
+
 int create_file(const char *filename, char *text_content)
 {
-	int file;
-	int length = 0;
-	int write_len = 0;
+	int fd, to_write, s = 0;
 
-	if (filename == NULL)
+	/* Check if filename is NULL and return -1 */
+	if (!filename)
 		return (-1);
-	file = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
-	if (file == -1)
+
+	/*
+	 * Open file for write only, create it if it doesn't exist
+	 * Truncate to zero length if it exists
+	 * 0600, Sets file permissions to rw- --- ---, read & write for owner only
+	 */
+	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);
+	if (fd < 0)
 		return (-1);
-	if (text_content != NULL)
+	/* If text_content is not empty, write it to file */
+	if (text_content)
 	{
-		length = _string_len(text_content);
-		write_len = write(file, text_content, length);
+		/* Counts number of characters in text_content */
+		while (text_content[s])
+			s++;
+		/* Writes text_content to file */
+		to_write = write(fd, text_content, s);
+		if (to_write != s)
+			return (-1);
 	}
-	if (write_len == -1)
-		return (-1);
-	close(file);
+
+	close(fd);
+
 	return (1);
-}
-
-/**
- * _string_len - get the length of a string
- *
- * @s: string
- *
- * Return: length of string
- *
- */
-int _string_len(char *s)
-{
-	int len;
-
-	len = 0;
-	while (*(s + len))
-		++len;
-	return (len);
 }
